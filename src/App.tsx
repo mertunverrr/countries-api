@@ -3,6 +3,7 @@ import Home from "./pages/Home"
 import { useAppDispatch } from "./redux/hooks";
 import {getAllCountries, searchCountries, filterCountries, searchAndFilterCountries }  from './redux/countriesSlice';
 import { useEffect, useState } from "react"
+import { Routes, Route} from 'react-router-dom';
 
 function App() {
   const [searchTerm , setSearchTerm] = useState<string>("")
@@ -13,7 +14,7 @@ function App() {
   const dispatch = useAppDispatch()
   useEffect(() => {
     dispatch(getAllCountries())
-  },[])
+  },[1])
 
   useEffect(() => {
     if(searchTerm === ""){
@@ -42,8 +43,10 @@ function App() {
 
   return (
     <div className="font-poppins bg-gray-100 min-h-screen text-sm">
-     <Home searchBool={searchBool} filterBool={filterBool} setFilterRegionTerm={setFilterRegionTerm} setSearchTerm={setSearchTerm} />
-     <DetailsPage />
+    <Routes>
+      <Route path="/" element={<Home searchBool={searchBool} filterBool={filterBool} setFilterRegionTerm={setFilterRegionTerm} setSearchTerm={setSearchTerm} searchTerm={searchTerm} />}/> 
+      <Route path="/country-details/:countryName" element={<DetailsPage />} />
+    </Routes>
       
     </div>
   )
