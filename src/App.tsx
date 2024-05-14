@@ -1,19 +1,22 @@
-import { useAppSelector, useAppDispatch } from './redux/hooks'
-import { useEffect } from 'react';
-import {getAllCountries }  from './redux/countriesSlice';
+
+import Header from './components/Header';
+import Input from './components/search/Input';
+import Filter from './components/search/Filter';
+import Country from './components/Country';
 function App() {
 
-  const dispatch = useAppDispatch()
-  const countriesData = useAppSelector(store => store.countries);
-  console.log(countriesData.data);
-
-  useEffect(() => {
-    dispatch(getAllCountries())
-  },[])
+ 
 
   return (
-    <h1 className="text-3xl font-bold underline">
-    </h1>
+    <div className='font-poppins bg-gray-100 min-h-screen text-sm'>
+      <Header />
+      <div className='container flex flex-col-reverse items-center md:items-start md:flex-row md:justify-between pt-2 px-8 lg:px-0 md:pt-8'>
+      <Input />
+      <Filter />
+      </div>
+      <Country />
+      
+    </div>
   )
 }
 
