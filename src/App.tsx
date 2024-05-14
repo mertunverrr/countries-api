@@ -1,20 +1,49 @@
+import DetailsPage from "./pages/DetailsPage"
+import Home from "./pages/Home"
+import { useAppDispatch } from "./redux/hooks";
+import {getAllCountries, searchCountries, filterCountries, searchAndFilterCountries }  from './redux/countriesSlice';
+import { useEffect, useState } from "react"
 
-import Header from './components/Header';
-import Input from './components/search/Input';
-import Filter from './components/search/Filter';
-import Country from './components/Country';
 function App() {
+  const [searchTerm , setSearchTerm] = useState<string>("")
+  const [filterRegionTerm , setFilterRegionTerm] = useState<string>("all")
+  const [searchBool , setSearchBool] = useState<boolean>(false)
+  const [filterBool , setFilterBool] = useState<boolean>(false)
 
- 
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(getAllCountries())
+  },[])
+
+  useEffect(() => {
+    if(searchTerm === ""){
+      setSearchBool(false)
+      
+    }else{
+      setSearchBool(true)
+      dispatch(searchCountries(searchTerm));
+    }
+    
+  },[searchTerm])
+  useEffect(() => {
+    if(filterRegionTerm === "all"){
+      setFilterBool(false)
+    }else{
+      setFilterBool(true)
+      dispatch(filterCountries(filterRegionTerm));
+    }
+    
+  },[filterRegionTerm])
+
+  useEffect(() => {
+    dispatch(searchAndFilterCountries(filterRegionTerm))
+  },[filterRegionTerm , searchTerm])
+
 
   return (
-    <div className='font-poppins bg-gray-100 min-h-screen text-sm'>
-      <Header />
-      <div className='container flex flex-col-reverse items-center md:items-start md:flex-row md:justify-between pt-2 px-8 lg:px-0 md:pt-8'>
-      <Input />
-      <Filter />
-      </div>
-      <Country />
+    <div className="font-poppins bg-gray-100 min-h-screen text-sm">
+     <Home searchBool={searchBool} filterBool={filterBool} setFilterRegionTerm={setFilterRegionTerm} setSearchTerm={setSearchTerm} />
+     <DetailsPage />
       
     </div>
   )

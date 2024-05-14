@@ -64,6 +64,9 @@ export interface Translations {
 
 export interface ICountriesState {
   data: ICountryType[];
+  searchedCountries: ICountryType[];
+  filteredCountries: ICountryType[];
+  searchAndFilteredCountries: ICountryType[];
 }
 
 
@@ -77,14 +80,28 @@ export const getAllCountries = createAsyncThunk<ICountryType[], void>(
 
 
 const initialState: ICountriesState = {
-  data: []
+  data: [],
+  searchedCountries: [],
+  filteredCountries: [],
+  searchAndFilteredCountries: []
 };
 
 export const countriesSlice = createSlice({
   name: 'countries',
   initialState,
   reducers: {
-    
+    searchCountries: (state, action: PayloadAction<string>) => {
+      const input = action.payload;
+      state.searchedCountries = state.data.filter((country) => country.name.toLowerCase().includes(input.toLowerCase()))
+    },
+    filterCountries: (state, action: PayloadAction<string>) => {
+      const option = action.payload;
+      state.filteredCountries = state.data.filter((country) => country.region.toLowerCase().includes(option.toLowerCase()))
+    },
+    searchAndFilterCountries: (state, action: PayloadAction<string>) => {
+      const option = action.payload;
+      state.searchAndFilteredCountries = state.searchedCountries.filter((country) => country.region.toLowerCase().includes(option.toLowerCase()))
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(getAllCountries.fulfilled, (state, action: PayloadAction<ICountryType[]>) => {
@@ -93,6 +110,6 @@ export const countriesSlice = createSlice({
   },
 });
 
-export const {} = countriesSlice.actions;
+export const {searchCountries, filterCountries , searchAndFilterCountries} = countriesSlice.actions;
 
 export default countriesSlice.reducer;
