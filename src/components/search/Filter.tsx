@@ -2,12 +2,13 @@ import React from 'react'
 
 interface CountryProps {
   setFilterRegionTerm: React.Dispatch<React.SetStateAction<string>>
+  filterRegionTerm: string
 }
 
-function Filter({setFilterRegionTerm}:CountryProps) {
+function Filter({setFilterRegionTerm , filterRegionTerm}:CountryProps) {
   return (
         <React.Fragment>
-            <select className='p-2 w-44 rounded-md' onChange={(e) => setFilterRegionTerm(e.target.value)}>
+            <select className='p-2 w-44 rounded-md' value={filterRegionTerm} onChange={(e) => setFilterRegionTerm(e.target.value)}>
                 <option value="all" >All Regions</option>
                 <option value="africa">Africa</option>
                 <option value="america">America</option>

@@ -37,7 +37,7 @@ function CountryDetail({country}:CountryProps) {
                 <p className='font-medium'>Languages: {country.languages && country.languages.map((langName , index) => (<span className='font-normal' key={index}>{langName.name}  </span>))}</p>
             </div>
             <h3 className='font-medium space-x-2'>Border Countries: {country.borders && country.borders.map((border , index) => (
-            <button className='font-normal bg-white p-0.5 px-2.5 rounded-md' key={index}
+            <button className='font-normal bg-white p-0.5 px-2.5 rounded-md shadow-sm hover:shadow-lg' key={index}
             onClick={() => borderNavigate(border)}>
             {border}</button>))}</h3>
         </div>

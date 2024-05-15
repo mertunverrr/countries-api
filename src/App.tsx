@@ -44,7 +44,7 @@ function App() {
   return (
     <div className="font-poppins bg-gray-100 min-h-screen text-sm">
     <Routes>
-      <Route path="/" element={<Home searchBool={searchBool} filterBool={filterBool} setFilterRegionTerm={setFilterRegionTerm} setSearchTerm={setSearchTerm} searchTerm={searchTerm} />}/> 
+      <Route path="/" element={<Home searchBool={searchBool} filterBool={filterBool} setFilterRegionTerm={setFilterRegionTerm} setSearchTerm={setSearchTerm} searchTerm={searchTerm} filterRegionTerm={filterRegionTerm} />}/> 
       <Route path="/country-details/:countryName" element={<DetailsPage />} />
     </Routes>
       
